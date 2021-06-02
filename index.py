@@ -26,9 +26,8 @@ def chatGET():
 @app.route('/chat', methods = ['POST'])
 def chat():
     data = request.get_json(force=True)
-    print(data["email"]) # prints message=Hi from the request
-    print(data["password"]) # prints message=Hi from the request
+    print(data["message"]) # prints message=Hi from the request
     # TODO get specific message (Hi) from request body
-    return "chatPOST" # simple RESPONDES with "test"
+    return "Rsponse" # simple RESPONDES with "test"
 
 app.run() # run the app as a final statement
