@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, json
 from markupsafe import escape
+from db import init_app
 
 app = Flask(__name__) # seems to be a __constant__ which is not defined here (__BLBLA__)
+init_app(app) # tell the database it should connect with out app instance
 responses = ["Hello","Goodbye", "Tschuess", "Auf wiedersehen"] #static list
 @app.route("/") # index/main endpoint/route
 def hello_world():
@@ -27,7 +29,8 @@ def chatGET():
 def chat():
     data = request.get_json(force=True)
     print(data["message"]) # prints message=Hi from the request
-    # TODO get specific message (Hi) from request body
+    # TODO get database context in current running app
+    # TODO write message in db
     return "Rsponse" # simple RESPONDES with "test"
 
 app.run() # run the app as a final statement
