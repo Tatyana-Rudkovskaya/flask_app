@@ -1,12 +1,16 @@
 from flask import Flask, jsonify, request, json
 from markupsafe import escape
-from db import init_app
+from db import get_db, query_db, add_data
 
 app = Flask(__name__) # seems to be a __constant__ which is not defined here (__BLBLA__)
-init_app(app) # tell the database it should connect with out app instance
+# init_app(app) # tell the database it should connect with out app instance
+
 responses = ["Hello","Goodbye", "Tschuess", "Auf wiedersehen"] #static list
 @app.route("/") # index/main endpoint/route
 def hello_world():
+    user = query_db('select * from users')
+    print("USER")
+    print(user)
     return "<h1>Hello, Maria!</h1>"
 
 @app.route("/messages") # static endpoint/route
@@ -28,6 +32,9 @@ def chatGET():
 @app.route('/chat', methods = ['POST'])
 def chat():
     data = request.get_json(force=True)
+    username1 = "Tommyyyyyy"
+    user = add_data(99, username1)
+    print(user)
     print(data["message"]) # prints message=Hi from the request
     # TODO get database context in current running app
     # TODO write message in db
